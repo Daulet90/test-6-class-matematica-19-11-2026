@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="kk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Алгебра — Рационал сандарға арифметикалық амалдар</title>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1c2230;--navy:#22406b;--or:#b5541c;--line:#c9d1dd;--bg:#eef1f5;--mut:#5b6677}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "PT Sans",Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.card{background:#fff;border:1px solid var(--line);border-top:5px solid var(--navy);width:100%;max-width:760px;padding:32px 36px;border-radius:4px}
+h1{font:700 26px/1.25 "PT Serif",Georgia,serif;margin:0 0 6px;color:var(--navy)}
+.meta{color:var(--mut);margin:0 0 22px}
+.meta b{color:var(--ink)}
+label.f{display:block;font-weight:700;margin:16px 0 6px}
+input[type=text],select{width:100%;padding:11px 12px;font:inherit;border:1px solid #9aa6b8;border-radius:3px;background:#fff}
+input:focus,select:focus,button:focus-visible{outline:3px solid #8fb0e0;outline-offset:1px}
+.vars{display:flex;gap:12px}
+.vars label{flex:1;border:1px solid #9aa6b8;padding:11px 14px;border-radius:3px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.vars label:has(input:checked){border-color:var(--navy);background:#e8eef8;box-shadow:inset 0 0 0 1px var(--navy)}
+.rules{margin:22px 0 0;padding:12px 16px;background:#f6f7f9;border-left:3px solid var(--or);font-size:15px;color:#333}
+.rules ul{margin:6px 0 0;padding-left:20px}
+button.main{margin-top:24px;padding:12px 30px;font:700 17px "PT Sans",sans-serif;color:#fff;background:var(--navy);border:0;border-radius:3px;cursor:pointer}
+button.main:disabled{background:#a9b3c3;cursor:not-allowed}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:700}
+.timer{font:700 20px "PT Serif",serif;padding:2px 12px;border:1.5px solid var(--navy);border-radius:3px;min-width:84px;text-align:center}
+.timer.low{color:#fff;background:#a32121;border-color:#a32121}
+.bar{height:6px;background:#dde3ec;margin-bottom:22px}.bar i{display:block;height:100%;background:var(--navy)}
+.q{font:400 20px/1.45 "PT Serif",Georgia,serif;margin:0 0 10px}
+.expr{font:400 32px "PT Serif",serif;margin:8px 0 12px;color:var(--navy)}
+.fig{margin:6px 0 16px;text-align:center}.fig svg{width:100%;max-width:580px;height:auto}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts label{display:flex;align-items:center;gap:12px;border:1px solid #9aa6b8;border-radius:3px;padding:12px 14px;cursor:pointer;font:400 22px "PT Serif",serif}
+.opts label:has(input:checked){border-color:var(--navy);background:#e8eef8;box-shadow:inset 0 0 0 1px var(--navy)}
+.opts .k{font:700 15px "PT Sans",sans-serif;color:var(--mut)}
+.num{font-size:24px;max-width:240px;font-family:"PT Serif",serif}
+.hint{color:var(--mut);font-size:15px;margin-top:6px}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.78em;line-height:1.15;margin:0 .2em}
+.fr i{font-style:normal;border-bottom:1.5px solid currentColor;padding:0 .25em}.fr b{font-weight:400}
+.res{text-align:center}.score{font:700 64px "PT Serif",serif;color:var(--navy);margin:10px 0}
+.note{padding:10px 14px;background:#fdf1ea;border-left:3px solid var(--or);text-align:left;margin:14px 0}
+#ov{position:fixed;inset:0;background:rgba(20,28,45,.72);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+#ov div{background:#fff;max-width:460px;padding:26px;border-top:5px solid #a32121;border-radius:4px}
+#ov h2{font:700 21px "PT Serif",serif;margin:0 0 8px;color:#a32121}
+.hid{display:none}
+</style></head><body>
+<main class="card">
+
+<section id="s0">
+  <h1>Тест: Рационал сандарға арифметикалық амалдар. Қосу және азайту</h1>
+  <p class="meta">Пән: <b>Алгебра</b> &nbsp;|&nbsp; Оқу мақсаты: <b>6.1.2.22</b> рационал сандармен арифметикалық амалдарды орындау<br>Математика пәнінің мұғалімі: <b>Кунгозин Даулет Багдашұлы</b></p>
+  <label class="f" for="nm">Тегі мен аты</label>
+  <input type="text" id="nm" autocomplete="off" placeholder="Введите ФИ">
+  <label class="f" for="cl">Сынып</label>
+  <select id="cl"><option value="">Таңдаңыз</option><option>6Ә</option></select>
+  <label class="f">Нұсқа</label>
+  <div class="vars"><label><input type="radio" name="v" value="1"> 1-нұсқа</label><label><input type="radio" name="v" value="2"> 2-нұсқа</label></div>
+  <div class="rules"><b>Тест ережелері</b><ul>
+    <li>10 сұрақ: 7 сұраққа бір дұрыс жауап, 3 сұраққа санды енгізу арқылы жауап беріледі. Әр сұрақ — 1 балл, барлығы 10 балл.</li>
+    <li>Әр сұраққа 1,5 минут беріледі. Уақыт біткенде келесі сұраққа автоматты түрде өтеді. Артқа қайтуға болмайды.</li>
+    <li>Тест кезінде қойындыны ауыстыруға немесе бетті жасыруға болмайды. Әр ауыстыру тіркеледі, ал нәтижеден <b>1 балл</b> шегеріледі.</li></ul></div>
+  <button class="main" id="go" disabled>Келесі</button>
+</section>
+
+<section id="s1" class="hid">
+  <div class="top"><span id="pg"></span><span class="timer" id="tm">1:30</span></div>
+  <div class="bar"><i id="pb"></i></div>
+  <p class="q" id="qt"></p><div class="expr" id="ex"></div><div class="fig" id="fg"></div>
+  <div id="an"></div>
+  <button class="main" id="nx" disabled>Келесі</button>
+</section>
+
+<section id="s2" class="res hid">
+  <h1>Тест аяқталды</h1>
+  <p id="who" class="meta"></p>
+  <div class="score" id="sc"></div>
+  <div id="pn"></div>
+  <p class="meta" id="st">Нәтиже жіберілуде…</p>
+  <button class="main hid" id="rt">Қайта жіберу</button>
+</section>
+</main>
+
+<div id="ov"><div><h2>Ескерту!</h2><p>Сіз тест кезінде қойындыны ауыстырдыңыз. Тест тоқтатылған жоқ, бірақ бұл әрекет тіркелді: <b>қорытынды баға 1 баллға төмендетіледі</b>. Қойындыны қайта ауыстырмаңыз.</p><button class="main" id="ok" style="margin-top:6px">Түсінікті, жалғастыру</button></div></div>
+
+<script>
+const URL_='https://script.google.com/macros/s/AKfycbzTUjuO2iiSp8S4zOaQK52rmo7UHK4QM5qs5ucPF-qUALVZW5n3H4a3gTfc85k6rYs0GA/exec';
+const SEC=90,N=10;
+const $=i=>document.getElementById(i);
+const fm=s=>s.replace(/(\d+)\/(\d+)/g,'<span class="fr"><i>$1</i><b>$2</b></span>');
+const nf=v=>String(v).replace('-','−').replace('.',',');
+const C=['#22406b','#b5541c'];
+
+function nl(c){
+  const W=580,H=c.ar?150:104,y=c.ar?96:62,X=v=>44+(v-c.min)/(c.max-c.min)*(W-88);
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="PT Sans,Arial" role="img" aria-label="Сан түзуі"><defs><marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0L9,4.5L0,9z" fill="#b5541c"/></marker><marker id="m2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0L9,4.5L0,9z" fill="#22406b"/></marker></defs><line x1="18" y1="${y}" x2="${W-14}" y2="${y}" stroke="#22406b" stroke-width="2.2" marker-end="url(#m2)"/>`;
+  for(let v=c.min;v<=c.max;v++)s+=`<line x1="${X(v)}" y1="${y-7}" x2="${X(v)}" y2="${y+7}" stroke="#22406b" stroke-width="1.8"/><text x="${X(v)}" y="${y+27}" text-anchor="middle" font-size="16" fill="#1c2230">${nf(v)}</text>`;
+  if(c.ar){const a=X(c.ar[0]),b=X(c.ar[1]),m=(a+b)/2;
+    s+=`<path d="M${a} ${y-12} Q${m} ${y-86} ${b} ${y-12}" fill="none" stroke="#b5541c" stroke-width="2.4" marker-end="url(#m)"/><text x="${m}" y="${y-54}" text-anchor="middle" font-size="18" font-weight="700" fill="#b5541c">${c.ar[2]}</text>`;}
+  (c.p||[]).forEach(([v,l,k])=>{s+=`<circle cx="${X(v)}" cy="${y}" r="7" fill="${C[k]}" stroke="#fff" stroke-width="2"/><text x="${X(v)}" y="${c.ar?y+50:y-16}" text-anchor="middle" font-size="17" font-weight="700" fill="${C[k]}">${l}</text>`;});
+  return s+'</svg>';
+}
+function bar(rows){
+  const H=rows.length*84+8,W=580;let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="PT Sans,Arial" role="img" aria-label="Бөлшек жолақтары">`;
+  rows.forEach((r,i)=>{const y=10+i*84,w=500/r.n;let idx=0,fill=[];
+    r.s.forEach(([n,k])=>{for(let j=0;j<n;j++)fill[idx++]=k;});
+    for(let j=0;j<r.n;j++)s+=`<rect x="${40+j*w}" y="${y}" width="${w}" height="38" fill="${fill[j]!=null?C[fill[j]]:'#fff'}" fill-opacity="${fill[j]!=null?.88:1}" stroke="#22406b" stroke-width="1.8"/>`;
+    let p=0;r.s.forEach(([n,k,l])=>{s+=`<text x="${40+(p+n/2)*w}" y="${y+62}" text-anchor="middle" font-size="19" font-weight="700" fill="${C[k]}">${l}</text>`;p+=n;});});
+  return s+'</svg>';
+}
+
+// o: нұсқалар, a: дұрыс жауап индексі; n: сандық жауап
+const V={1:[
+ {q:'Өрнектің мәнін табыңыз. Сан түзінде бірінші қосылғыш белгіленген.',e:'−3,5 + 1,2 =',f:nl({min:-5,max:1,p:[[-3.5,'−3,5',0]]}),o:['−2,3','−4,7','2,3','−2,7'],a:0},
+ {q:'Сызбада 1/2 және 1/3 бөліктері боялған. Олардың қосындысын табыңыз.',e:'1/2 + 1/3 =',f:bar([{n:2,s:[[1,0,'1/2']]},{n:3,s:[[1,1,'1/3']]}]),o:['2/5','5/6','1/6','3/5'],a:1},
+ {q:'Өрнектің мәнін табыңыз.',e:'−3/4 − 1/4 =',o:['−1/2','1','−1','1/2'],a:2},
+ {q:'Өрнектің мәнін табыңыз.',e:'2 1/2 − 3 1/4 =',o:['3/4','−3/4','−1/4','−5/4'],a:1},
+ {q:'A нүктесінің координатасы −2. Нүктені оңға қарай 5 бірлікке жылжытқанда, жаңа нүктенің координатасы қандай болады?',f:nl({min:-4,max:5,p:[[-2,'A',1]],ar:[-2,3,'+5']}),o:['3','−3','7','−7'],a:0},
+ {q:'Өрнектің мәнін табыңыз. Сан түзінде бірінші сан белгіленген.',e:'−0,8 − 0,7 =',f:nl({min:-2,max:2,p:[[-0.8,'−0,8',0]]}),o:['−0,1','1,5','0,1','−1,5'],a:3},
+ {q:'Жолақ 8 тең бөлікке бөлінген. Көк және қызғылт сары бөліктердің қосындысы қандай бөлшекке тең?',f:bar([{n:8,s:[[3,0,'3/8'],[2,1,'2/8']]}]),o:['5/16','1/8','5/8','6/8'],a:2},
+ {q:'Өрнектің мәнін есептеп, жауапты ондық бөлшек түрінде енгізіңіз.',e:'−4,6 + 9,1 =',n:4.5},
+ {q:'Өрнектің мәнін есептеп, жауапты ондық бөлшек түрінде енгізіңіз.',e:'7 − 12,5 =',n:-5.5},
+ {q:'Өрнектің мәнін есептеп, жауапты ондық бөлшек түрінде енгізіңіз.',e:'−2 1/4 + 5 3/4 =',n:3.5}
+],2:[
+ {q:'Өрнектің мәнін табыңыз. Сан түзінде бірінші қосылғыш белгіленген.',e:'−4,7 + 2,9 =',f:nl({min:-6,max:0,p:[[-4.7,'−4,7',0]]}),o:['−7,6','−1,8','1,8','−2,8'],a:1},
+ {q:'Сызбада 2/3 және 1/4 бөліктері боялған. Олардың қосындысын табыңыз.',e:'2/3 + 1/4 =',f:bar([{n:3,s:[[2,0,'2/3']]},{n:4,s:[[1,1,'1/4']]}]),o:['3/7','3/12','5/12','11/12'],a:3},
+ {q:'Өрнектің мәнін табыңыз.',e:'−5/6 − 1/6 =',o:['−1','1','−1/3','2/3'],a:0},
+ {q:'Өрнектің мәнін табыңыз.',e:'1 1/3 − 2 1/6 =',o:['5/6','−1/6','1/6','−5/6'],a:3},
+ {q:'A нүктесінің координатасы 3. Нүктені солға қарай 5 бірлікке жылжытқанда, жаңа нүктенің координатасы қандай болады?',f:nl({min:-4,max:5,p:[[3,'A',1]],ar:[3,-2,'−5']}),o:['2','8','−8','−2'],a:3},
+ {q:'Өрнектің мәнін табыңыз. Сан түзінде бірінші сан белгіленген.',e:'−1,2 − 0,9 =',f:nl({min:-3,max:1,p:[[-1.2,'−1,2',0]]}),o:['−0,3','2,1','−2,1','0,3'],a:2},
+ {q:'Жолақ 10 тең бөлікке бөлінген. Көк және қызғылт сары бөліктердің қосындысы қандай бөлшекке тең?',f:bar([{n:10,s:[[4,0,'4/10'],[3,1,'3/10']]}]),o:['7/20','1/10','12/10','7/10'],a:3},
+ {q:'Өрнектің мәнін есептеп, жауапты ондық бөлшек түрінде енгізіңіз.',e:'−7,3 + 12,1 =',n:4.8},
+ {q:'Өрнектің мәнін есептеп, жауапты ондық бөлшек түрінде енгізіңіз.',e:'5 − 13,2 =',n:-8.2},
+ {q:'Өрнектің мәнін есептеп, жауапты ондық бөлшек түрінде енгізіңіз.',e:'−1 3/4 + 4 1/4 =',n:2.5}
+]};
+
+let S={},Q,i=0,sel=null,dl=0,tid,sw=0,run=false,t0=0,P=null;
+const chk=()=>{$('go').disabled=!($('nm').value.trim().length>2&&$('cl').value&&document.querySelector('[name=v]:checked'))};
+['nm','cl'].forEach(x=>$(x).addEventListener('input',chk));
+document.querySelectorAll('[name=v]').forEach(x=>x.addEventListener('change',chk));
+
+$('go').onclick=()=>{S={name:$('nm').value.trim(),cls:$('cl').value,variant:+document.querySelector('[name=v]:checked').value};
+  Q=V[S.variant];i=0;sw=0;run=true;t0=Date.now();$('s0').classList.add('hid');$('s1').classList.remove('hid');show();};
+
+function show(){
+  const q=Q[i];sel=null;$('nx').disabled=true;$('nx').textContent=i==N-1?'Аяқтау':'Келесі';
+  $('pg').textContent=`Сұрақ ${i+1} / ${N}`;$('pb').style.width=(i/N*100)+'%';
+  $('qt').innerHTML=fm(q.q);$('ex').innerHTML=q.e?fm(q.e):'';$('fg').innerHTML=q.f||'';$('fg').style.display=q.f?'':'none';
+  if(q.o){$('an').innerHTML='<div class="opts">'+q.o.map((o,k)=>`<label><input type="radio" name="o" value="${k}"><span class="k">${'ABCD'[k]}</span><span>${fm(o)}</span></label>`).join('')+'</div>';
+    document.querySelectorAll('[name=o]').forEach(r=>r.onchange=()=>{sel=+r.value;$('nx').disabled=false;});}
+  else{$('an').innerHTML='<input type="text" class="num" id="nv" inputmode="decimal" autocomplete="off" placeholder="Жауабы"><div class="hint">Жауапты ондық бөлшек түрінде жазыңыз (мысалы: −2,5). Үтір немесе нүкте қолдануға болады.</div>';
+    $('nv').oninput=()=>{sel=$('nv').value.trim();$('nx').disabled=!sel;};$('nv').focus();}
+  dl=Date.now()+SEC*1000;clearInterval(tid);tid=setInterval(tick,250);tick();
+}
+function tick(){const l=Math.max(0,Math.ceil((dl-Date.now())/1000));$('tm').textContent=Math.floor(l/60)+':'+String(l%60).padStart(2,'0');$('tm').classList.toggle('low',l<=15);if(l<=0)next();}
+function ok(q,a){if(a==null||a==='')return 0;if(q.o)return a===q.a?1:0;const v=parseFloat(String(a).replace(/[−–]/g,'-').replace(',','.').replace(/\s/g,''));return Math.abs(v-q.n)<1e-9?1:0;}
+let raw=0;
+function next(){clearInterval(tid);raw+=ok(Q[i],sel);i++;if(i<N)show();else finish();}
+$('nx').onclick=next;
+
+document.addEventListener('visibilitychange',()=>{
+  if(!run)return;
+  if(document.hidden)sw++;else $('ov').style.display='flex';
+});
+$('ok').onclick=()=>{$('ov').style.display='none'};
+
+function finish(){
+  run=false;clearInterval(tid);$('s1').classList.add('hid');$('s2').classList.remove('hid');
+  const pen=sw>0?1:0,fin=Math.max(0,raw-pen);
+  P={name:S.name,cls:S.cls,variant:S.variant,raw,final:fin,max:N,switches:sw,penalty:pen,duration:Math.round((Date.now()-t0)/1000)};
+  $('who').textContent=`${S.name}, ${S.cls} сынып, ${S.variant}-нұсқа`;
+  $('sc').textContent=`${fin} / ${N}`;
+  $('pn').innerHTML=pen?`<div class="note">Тест кезінде қойынды ${sw} рет ауыстырылды, сондықтан нәтижеден 1 балл шегерілді (дұрыс жауаптар: ${raw}).</div>`:'';
+  send();
+}
+function send(){
+  $('st').textContent='Нәтиже жіберілуде…';$('rt').classList.add('hid');
+  if(URL_.startsWith('PASTE')){$('st').textContent='Google Apps Script сілтемесі көрсетілмеген: нәтиже жіберілмеді.';return;}
+  fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(P)})
+   .then(()=>{$('st').textContent='Нәтиже мұғалімге жіберілді. Бетті жабуға болады.'})
+   .catch(()=>{$('st').textContent='Жіберу кезінде қате шықты. Интернетті тексеріп, қайта жіберіңіз.';$('rt').classList.remove('hid');});
+}
+$('rt').onclick=send;
+</script>
+</body></html>
